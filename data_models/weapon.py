@@ -21,5 +21,5 @@ class Weapon:
             attack_power: int
                 the attack power of the weapon
         """
-        self.name = name,
+        self.name = name
         self.attack_power = attack_power

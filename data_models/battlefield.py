@@ -59,6 +59,7 @@ class Battlefield:
         while self.dinosaur.health > 0 and self.robot.health > 0:
             #simulate simultaneous attacks instead of turn-based
             self.dinosaur.attack(self.robot)
+            self.robot.set_active_weapon()
             self.robot.attack(self.dinosaur)
     
     def display_welcome(self):
