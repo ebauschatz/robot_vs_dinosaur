@@ -24,7 +24,7 @@ class Herd:
         """
         self.dinosaurs = self._generate_herd()
 
-    def _generate_herd():
+    def _generate_herd(self):
         """Generates a list of dinosaurs that constitute the herd
 
         Returns:
@@ -32,6 +32,6 @@ class Herd:
         """
         return [
             Dinosaur('Rosie', 25),
-            Dinosaur('K2S0', 20),
-            Dinosaur('Marvin', 15)
+            Dinosaur('Littlefoot', 25),
+            Dinosaur('Bob', 20)
         ]

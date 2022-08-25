@@ -24,7 +24,7 @@ class Fleet:
         """
         self.robots = self._generate_fleet()
 
-    def _generate_fleet():
+    def _generate_fleet(self):
         """Generates a list of robots that constitute the fleet
 
         Returns:

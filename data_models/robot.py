@@ -21,7 +21,7 @@ class Robot:
 
     Public Methods:
         attack(dinosaur: Dinosaur) : void
-            lowers the health of the dinosaur by the value of the active weapon's attack power and displays the result
+            sets the active weapon, lowers the health of the dinosaur by the value of the active weapon's attack power and displays the result
         set_active_weapon() : void
             sets the currently active weapon for the robot
     Private Methods:
@@ -82,8 +82,10 @@ class Robot:
                 the dinosaur to attack
         
         Effects:
+            Sets the robot's active weapon
             The current health of the dinosaur is reduced by the attack power of the active weapon
             Displays the new current health of the dinosaur to the console
         """
+        self.set_active_weapon()
         dinosaur.health -= self.active_weapon.attack_power
         ConsoleDisplay.display_attack_result(self.name, dinosaur.name, dinosaur.health)
