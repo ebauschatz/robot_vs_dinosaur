@@ -3,6 +3,8 @@
 Each dinosaur will have a name, health, and attack power.
 Dinosaurs can participate in battles against robots
 """
+from data_models.console_display import ConsoleDisplay
+
 class Dinosaur:
     """Represents a single dinosaur that can participate in battles
 
@@ -45,4 +47,4 @@ class Dinosaur:
             The current health of the robot is reduced by the value of the dinosaur's attack power
         """
         robot.health -= self.attack_power
-        print(f'\n{self.name} attacks! {robot.name}\'s health is now {robot.health}')
+        ConsoleDisplay.display_attack_result(self.name, robot.name, robot.health)

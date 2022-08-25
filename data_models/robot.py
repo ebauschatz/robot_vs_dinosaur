@@ -4,6 +4,7 @@ Each robot will have a name, health, and an active weapon they are
 currently using to damage opponents in battle.
 """
 from data_models.weapon import Weapon
+from data_models.console_display import ConsoleDisplay
 
 class Robot:
     """Represents a single robot that can participate in battles
@@ -64,9 +65,8 @@ class Robot:
         Effects:
             Sets the active_weapon attribute
         """
-        print('\nPlease choose a weapon for the robot to use on this attack:')
-        for index, weapon in enumerate(self.available_weapons):
-            print(str(index + 1) + ' - ' + weapon.name)
+        ConsoleDisplay.display_prompt_weapon_choice(self.name)
+        ConsoleDisplay.display_all_list_options([x.name for x in self.available_weapons])
         valid_choice = False
         while valid_choice is False:
             user_choice = input('Please enter the number of your selection: ')
@@ -86,4 +86,4 @@ class Robot:
             Displays the new current health of the dinosaur to the console
         """
         dinosaur.health -= self.active_weapon.attack_power
-        print(f'\n{self.name} attacks! {dinosaur.name}\'s health is now {dinosaur.health}')
+        ConsoleDisplay.display_attack_result(self.name, dinosaur.name, dinosaur.health)
