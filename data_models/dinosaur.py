@@ -45,3 +45,4 @@ class Dinosaur:
             The current health of the robot is reduced by the value of the dinosaur's attack power
         """
         robot.health -= self.attack_power
+        print(f'\n{self.name} attacks! {robot.name}\'s health is now {robot.health}')

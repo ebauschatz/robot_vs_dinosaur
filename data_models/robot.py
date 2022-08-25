@@ -20,7 +20,7 @@ class Robot:
 
     Public Methods:
         attack(dinosaur: Dinosaur) : void
-            lowers the health of the dinosaur by the value of the active weapon's attack power
+            lowers the health of the dinosaur by the value of the active weapon's attack power and displays the result
         set_active_weapon() : void
             sets the currently active weapon for the robot
     Private Methods:
@@ -64,7 +64,7 @@ class Robot:
         Effects:
             Sets the active_weapon attribute
         """
-        print('Please choose a weapon for the robot to use on this attack:')
+        print('\nPlease choose a weapon for the robot to use on this attack:')
         for index, weapon in enumerate(self.available_weapons):
             print(str(index + 1) + ' - ' + weapon.name)
         valid_choice = False
@@ -72,7 +72,7 @@ class Robot:
             user_choice = input('Please enter the number of your selection: ')
             if user_choice.isnumeric():
                 valid_choice = True
-        self.active_weapon = self.available_weapons[int(user_choice)]
+        self.active_weapon = self.available_weapons[int(user_choice) - 1]
 
     def attack(self, dinosaur):
         """Allows the robot to attack a dinosaur
@@ -83,5 +83,7 @@ class Robot:
         
         Effects:
             The current health of the dinosaur is reduced by the attack power of the active weapon
+            Displays the new current health of the dinosaur to the console
         """
         dinosaur.health -= self.active_weapon.attack_power
+        print(f'\n{self.name} attacks! {dinosaur.name}\'s health is now {dinosaur.health}')
