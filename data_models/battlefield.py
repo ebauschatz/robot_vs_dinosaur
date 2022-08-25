@@ -5,8 +5,6 @@ a dinosaur. Messages will be displayed for the beginning of a game and
 the resulting victor.
 """
 import random
-from secrets import randbits
-from tokenize import group
 from data_models.fleet import Fleet
 from data_models.herd import Herd
 from data_models.console_display import ConsoleDisplay
@@ -24,7 +22,7 @@ class Battlefield:
         run_game() : void
             This will run all game-related logic and initiate the battle
         determine_winner() : void
-            This will display the results of the battle to the user
+            This determines the winner of the battle based on remaining health
         battle_phase() : void
             This performs all battle logic between participants
         get_random_list_element(all_options: list:Any) : Any
@@ -54,7 +52,11 @@ class Battlefield:
         """
         ConsoleDisplay.display_welcome()
         self.battle_phase()
-        #self.determine_winner()
+        winner = self.determine_winner()
+        if winner != '':
+            ConsoleDisplay.display_winner(winner)
+        else:
+            ConsoleDisplay.display_no_winner()
 
     def battle_phase(self):
         """Performs logic for the battle
@@ -107,14 +109,14 @@ class Battlefield:
         return random.choice(all_options)
     
     def determine_winner(self):
-        """Displays the winner of the battle
+        """Determines the winner of the battle based on remaining health
 
-        Effects:
-            The winner and associated message will be displayed to the console
+        Returns:
+            String representing the winning group
         """
-        if self.robot.health > 0 and self.dinosaur.health <= 0:
-            ConsoleDisplay.display_winner('\nRobots are the best!', self.robot.name)
-        elif self.dinosaur.health > 0 and self.robot.health <= 0:
-            ConsoleDisplay.display_winner('\nObviously dinosaurs are superior!', self.dinosaur.name)
+        if len([x for x in self.fleet.robots if x.health > 0]) > 0 and len([x for x in self.herd.dinosaurs if x.health > 0]) == 0:
+            return 'Robots'
+        elif len([x for x in self.fleet.robots if x.health > 0]) == 0 and len([x for x in self.herd.dinosaurs if x.health > 0]) > 0:
+            return 'Dinosaurs'
         else:
-            ConsoleDisplay.display_no_winner(self.dinosaur.name, self.robot.name)
+            return ''

@@ -16,7 +16,7 @@ class ConsoleDisplay:
             Displays a welcome message for the game
         display_winner(victory_message: str, winner_name: str) : void
             Displays the winner's name and a message
-        display_no_winner(name_one: str, name_two: str) : void
+        display_no_winner() : void
             Displays a message when no winner could be determined
     """
     @staticmethod
@@ -70,10 +70,10 @@ class ConsoleDisplay:
         Effects:
             Displays a game welcome message to the console
         """
-        print('\nWelcome to the battlefield, where a robot and a dinosaur will battle for ultimate supremacy!')
+        print('\nWelcome to the battlefield, where robots and dinosaurs will battle for ultimate supremacy!')
 
     @staticmethod
-    def display_winner(victory_message, winner_name):
+    def display_winner(winner_name):
         """Displays the winner of the battle
         
         Args:
@@ -85,20 +85,13 @@ class ConsoleDisplay:
         Effects:
             The winner and associated message will be displayed to the console
         """
-        print(victory_message)
-        print(f'{winner_name} won!')
+        print(f'\n{winner_name} won!')
 
     @staticmethod
-    def display_no_winner(name_one, name_two):
+    def display_no_winner():
         """Displays message when no winner could be determined
-
-        Args:
-            name_one: str
-                the name of the first competitor
-            name_two: str
-                the name of the other competitor
 
         Effects:
             Displays a message and the names to the console
         """
-        print(f'\nThere was no clear winner between {name_one} and {name_two}.')
+        print(f'\nThere was no clear winner.')
