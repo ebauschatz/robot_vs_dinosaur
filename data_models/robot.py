@@ -1,4 +1,4 @@
-from weapon import Weapon
+from data_models.weapon import Weapon
 
 class Robot:
     def __init__(self, name):
