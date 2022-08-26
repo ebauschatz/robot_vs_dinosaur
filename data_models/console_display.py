@@ -18,6 +18,8 @@ class ConsoleDisplay:
             Displays the winner's name and a message
         display_no_winner() : void
             Displays a message when no winner could be determined
+        display_attack_missed(attacker_name: str, target_name: str) : void
+            Displays a message when an attack missed
     """
     @staticmethod
     def display_attack_result(attacker_name, target_name, target_health):
@@ -95,3 +97,18 @@ class ConsoleDisplay:
             Displays a message and the names to the console
         """
         print(f'\nThere was no clear winner.')
+
+    @staticmethod
+    def display_attack_missed(attacker_name, target_name):
+        """Displays message when an attack misses
+
+        Args:
+            attacker_name: str
+                the name of the attacking entity
+            target_name: str
+                the name of the entity the attack targeted
+
+        Effects:
+            Displays a message and the attacker / target names to the console
+        """
+        print(f'\n{attacker_name}\'s attack missed! {target_name} was not harmed.')

@@ -12,7 +12,7 @@ class Herd:
             a list of dinosaurs who join into a herd
 
     Private Methods:
-        _generate_herd(): list:Dinosaur
+        __generate_herd(): list:Dinosaur
             generates a list of dinosaurs that constitute the herd
     """
     def __init__(self):
@@ -22,9 +22,9 @@ class Herd:
             dinosaurs: list:Dinosaur
                 a list of dinosaurs who join into a herd
         """
-        self.dinosaurs = self._generate_herd()
+        self.dinosaurs = self.__generate_herd()
 
-    def _generate_herd(self):
+    def __generate_herd(self):
         """Generates a list of dinosaurs that constitute the herd
 
         Returns:

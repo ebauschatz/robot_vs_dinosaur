@@ -84,7 +84,7 @@ class Battlefield:
                 a list of all available target entities
         
         Effects:
-            The health of selected targets will be reduced
+            The health of selected targets will be reduced for each successful attack
         """
         for attacker in attackers:
             if attacker.health <= 0:
@@ -92,7 +92,11 @@ class Battlefield:
             remaining_targets = [t for t in targets if t.health > 0]
             if len(remaining_targets) > 0:
                 target = self.get_random_list_element(remaining_targets)
-                attacker.attack(target)
+                attack_succeeds = self.get_random_list_element([True, False])
+                if attack_succeeds:
+                    attacker.attack(target)
+                else:
+                    ConsoleDisplay.display_attack_missed(attacker.name, target.name)
             else:
                 break
 
