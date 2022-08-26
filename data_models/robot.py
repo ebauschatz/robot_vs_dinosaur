@@ -1,31 +1,36 @@
 """Class file for Robots
 
-Each robot will have a name, health, and an active weapon they are
+Each robot will have a name, health, a list of available weapons, and an active weapon they are
 currently using to damage opponents in battle.
 """
 from data_models.weapon import Weapon
 from data_models.console_display import ConsoleDisplay
+from data_models.combatant import Combatant
 
-class Robot:
+class Robot(Combatant):
     """Represents a single robot that can participate in battles
 
-    Instance Variables:
+    Inherited Instance Variables:
         name: string
             the name of the robot
         health: int
             the current health of the robot
+    Instance Variables:
         active_weapon: Weapon
             the weapon the robot is currently using
         available_weapons: list:Weapon
                 a list of all available Weapon objects the robot can choose from
 
+    Inherited Public Methods:
+        attack(attack_power: int, target: Combatant)
+            allows the combatant to attack another target combatant and do damage
     Public Methods:
-        attack(dinosaur: Dinosaur) : void
-            sets the active weapon, lowers the health of the dinosaur by the value of the active weapon's attack power and displays the result
         set_active_weapon() : void
             sets the currently active weapon for the robot
+        get_attack_power() : int
+            returns the attack power of the active weapon
     Private Methods:
-        _set_available_weapons() : list:Weapon
+        __set_available_weapons() : list:Weapon
             configures all weapons that are available to the robot
     """
     def __init__(self, name):
@@ -34,20 +39,20 @@ class Robot:
         Instance Variables from Parameters:
             name: string
                 the name of the robot
-        Instance Variables:
+        Inherited Instance Variables:
             health: int
                 the current health of the robot
+        Instance Variables:
             active_weapon: Weapon
                 the weapon the robot is currently using
             available_weapons: list:Weapon
                 a list of all available Weapon objects the robot can choose from
         """
-        self.name = name
-        self.health = 100
+        Combatant.__init__(self, name)
         self.active_weapon = Weapon('laser gun', 20)
-        self.available_weapons = self._set_available_weapons()
+        self.available_weapons = self.__set_available_weapons()
 
-    def _set_available_weapons(self):
+    def __set_available_weapons(self):
         """Configures all weapons available to the robot for battle
 
         Returns:
@@ -74,18 +79,14 @@ class Robot:
                 valid_choice = True
         self.active_weapon = self.available_weapons[int(user_choice) - 1]
 
-    def attack(self, dinosaur):
-        """Allows the robot to attack a dinosaur
-
-        Args:
-            dinosaur: Dinosaur
-                the dinosaur to attack
+    def get_attack_power(self):
+        """Returns the robot's current attack power
         
         Effects:
             Sets the robot's active weapon
-            The current health of the dinosaur is reduced by the attack power of the active weapon
-            Displays the new current health of the dinosaur to the console
+
+        Returns:
+            int of the active weapon's attack power
         """
         self.set_active_weapon()
-        dinosaur.health -= self.active_weapon.attack_power
-        ConsoleDisplay.display_attack_result(self.name, dinosaur.name, dinosaur.health)
+        return self.active_weapon.attack_power

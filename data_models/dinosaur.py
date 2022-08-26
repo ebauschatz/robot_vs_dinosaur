@@ -3,22 +3,26 @@
 Each dinosaur will have a name, health, and attack power.
 Dinosaurs can participate in battles against robots
 """
-from data_models.console_display import ConsoleDisplay
+from data_models.combatant import Combatant
 
-class Dinosaur:
+class Dinosaur(Combatant):
     """Represents a single dinosaur that can participate in battles
 
-    Instance Variables:
+    Inherited Instance Variables:
         name: string
             the name of the dinosaur
-        attack_power: int
-            the dinosaur's attack power that can damage opponents
         health: int
             the current health of the dinosaur
+    Instance Variables:
+        attack_power: int
+            the dinosaur's attack power that can damage opponents
 
+    Inherited Public Methods:
+        attack(attack_power: int, target: Combatant)
+            allows the combatant to attack another target combatant and do damage
     Public Methods:
-        attack(robot: Robot) : void
-            lowers the health of the robot by the value of the dinosaur's attack power
+        get_attack_power(): int
+            returns the attack power of the dinosaur
     """
     def __init__(self, name, attack_power):
         """Constructs a dinosaur
@@ -28,23 +32,17 @@ class Dinosaur:
                 the name of the dinosaur
             attack_power: int
                 the dinosaur's attack power that can damage opponents
-        Instance Variables:
+        Inherited Instance Variables:
             health: int
                 the current health of the dinosaur
         """
-        self.name = name
+        Combatant.__init__(self, name)
         self.attack_power = attack_power
-        self.health = 100
 
-    def attack(self, robot):
-        """Allows the dinosaur to attack a robot
+    def get_attack_power(self):
+        """Returns the dinosaur's current attack power
 
-        Args:
-            robot: Robot
-                the robot to attack
-        
-        Effects:
-            The current health of the robot is reduced by the value of the dinosaur's attack power
+        Returns:
+            int of the current attack power
         """
-        robot.health -= self.attack_power
-        ConsoleDisplay.display_attack_result(self.name, robot.name, robot.health)
+        return self.attack_power

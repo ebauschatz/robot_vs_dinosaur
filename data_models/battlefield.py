@@ -27,8 +27,10 @@ class Battlefield:
             This performs all battle logic between participants
         get_random_list_element(all_options: list:Any) : Any
             Returns a randomly selected element from a list of any type
-        run_group_attack(attackers: list:(Dinosaur or Robot), targets: list:(Dinosaur or Robot)) : void
+        run_group_attack(attackers: list:Combatant, targets: list:Combatant) : void
             Performs an attack for all attackers against random targets
+        run_single_attack(attacker: Combatant, target: Combatant)
+            Performs an attack from a single attacker against a single target
     """
     def __init__(self):
         """Constructs a battlefield for the game to take place in
@@ -78,9 +80,9 @@ class Battlefield:
         """Perform attacks against a random target for all attackers
 
         Args:
-            attackers: list:(Dinosaur or Robot)
+            attackers: list:Combatant
                 a list of all attacking entities
-            targets: list:(Dinosaur or Robot)
+            targets: list:Combatant
                 a list of all available target entities
         
         Effects:
@@ -92,13 +94,29 @@ class Battlefield:
             remaining_targets = [t for t in targets if t.health > 0]
             if len(remaining_targets) > 0:
                 target = self.get_random_list_element(remaining_targets)
-                attack_succeeds = self.get_random_list_element([True, False])
-                if attack_succeeds:
-                    attacker.attack(target)
-                else:
-                    ConsoleDisplay.display_attack_missed(attacker.name, target.name)
+                self.run_single_attack(attacker, target)
             else:
                 break
+
+    def run_single_attack(self, attacker, target):
+        """Perform an attack against a single target
+
+        Args:
+            attacker: Combatant
+                the attacking entity
+            target: Combatant
+                the target of the attack
+        
+        Effects:
+            If the attack is successful the health of selected target will be reduced
+            Displays attack message to the console
+        """
+        attack_succeeds = self.get_random_list_element([True, False])
+        if attack_succeeds:
+            current_attack_power = attacker.get_attack_power()
+            attacker.attack(current_attack_power, target)
+        else:
+            ConsoleDisplay.display_attack_missed(attacker.name, target.name)
 
     def get_random_list_element(self, all_options):
         """Determines a random element from a list
